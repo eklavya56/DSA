@@ -1,15 +1,17 @@
 class Solution {
 public:
     string reverseWords(string s) {
-        istringstream iss(s);
-        vector<string> words;
+        stringstream ss(s);
         string word;
-        while (iss >> word) {  // extracts words ignoring spaces
+        vector<string> words;
+        while (ss >> word) {
             words.push_back(word);
         }
+
         reverse(words.begin(), words.end());
+
         string result;
-        for (int i = 0; i < words.size(); ++i) {
+        for (int i = 0; i < words.size(); i++) {
             if (i > 0) result += " ";
             result += words[i];
         }
