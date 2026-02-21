@@ -1,43 +1,36 @@
 class Solution {
 public:
     int calculate(string s) {
-        long long result = 0;
-        long long num = 0;
+        stack<int> st;
+        long res = 0;
+        long curr = 0;
         int sign = 1;
-        stack<long long> st;
 
-        for(int i = 0; i < s.size(); i++) {
-
-            if(isdigit(s[i])) {
-                num = num * 10 + (s[i] - '0');
-            }
-
-            else if(s[i] == '+' || s[i] == '-') {
-                result += sign * num;
-                num = 0;
-                sign = (s[i] == '+') ? 1 : -1;
-            }
-
-            else if(s[i] == '(') {
-                st.push(result);
-                st.push(sign);
-                result = 0;
+        for (char c : s) {
+            if (isdigit(c)) {
+                curr = curr * 10 + (c - '0');
+            } else if (c == '+') {
+                res += sign * curr;
                 sign = 1;
-            }
-
-            else if(s[i] == ')') {
-                result += sign * num;
-                num = 0;
-
-                result *= st.top(); 
-                st.pop();
-
-                result += st.top(); 
-                st.pop();
+                curr = 0;
+            } else if (c == '-') {
+                res += sign * curr;
+                sign = -1;
+                curr = 0;
+            } else if (c == '(') {
+                st.push(res);
+                st.push(sign);
+                res = 0;
+                sign = 1;
+            } else if (c == ')') {
+                res += sign * curr;
+                curr = 0;
+                res *= st.top(); st.pop();
+                res += st.top(); st.pop();
             }
         }
 
-        result += sign * num;
-        return result;
+        res += sign * curr;
+        return res;
     }
 };
