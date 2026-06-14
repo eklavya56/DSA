@@ -17,7 +17,7 @@ public:
         head=head->next;
       }  
       int n=arr.size();
-      int maxi=INT_MIN;
+      int maxi=0;
       int i=0;
       int j=n-1;
       while(i<j){
