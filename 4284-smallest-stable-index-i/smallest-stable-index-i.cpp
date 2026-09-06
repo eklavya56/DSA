@@ -2,8 +2,6 @@ class Solution {
 public:
     int firstStableIndex(vector<int>& nums, int k) {
         int n = nums.size();
-
-        // suffixMin[i] = minimum element from i to n-1
         vector<long long> suffixMin(n);
 
         suffixMin[n - 1] = nums[n - 1];
@@ -11,8 +9,6 @@ public:
         for (int i = n - 2; i >= 0; i--) {
             suffixMin[i] = min((long long)nums[i], suffixMin[i + 1]);
         }
-
-        // Maximum from index 0 to i
         long long prefixMax = nums[0];
 
         for (int i = 0; i < n; i++) {
